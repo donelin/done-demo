@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+	http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+
+	<!-- 定义RabbitMQ的连接工厂 -->
+	<rabbit:connection-factory id="connectionFactory"
+		host="${rabbitmq.host}" port="${rabbitmq.port}" username="${rabbitmq.username}"
+		password="${rabbitmq.password}" virtual-host="${rabbitmq.vhost}" />
+
+	<!-- MQ的管理，包括队列、交换器等 -->
+	<rabbit:admin connection-factory="connectionFactory"/>
+	
+	<!-- durable:持久化，队列或交换机是否要存储到磁盘 也可以存储到内容 -->
+	<rabbit:topic-exchange name="${ItemTopicExchanges}" auto-declare="true" durable="true" />
+	
+	<!-- 定义模板 -->
+	<rabbit:template id="template" connection-factory="connectionFactory"/>
+</beans>
