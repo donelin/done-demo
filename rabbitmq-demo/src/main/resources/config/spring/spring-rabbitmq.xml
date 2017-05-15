@@ -14,9 +14,9 @@
 	<!-- MQ的管理，包括队列、交换器等 -->
 	<rabbit:admin connection-factory="connectionFactory"/>
 	
-	<!-- durable:持久化，队列或交换机是否要存储到磁盘 也可以存储到内容 -->
-	<rabbit:topic-exchange name="${ItemTopicExchanges}" auto-declare="true" durable="true" />
+	<!--声明交换机  durable:持久化，队列或交换机是否要存储到磁盘 也可以存储到内容 -->
+	<rabbit:topic-exchange name="${rabbitmq.exchange}" auto-declare="true" durable="true" />
 	
 	<!-- 定义模板 -->
-	<rabbit:template id="template" connection-factory="connectionFactory"/>
+	<rabbit:template id="rabbitTemplate" connection-factory="connectionFactory"/>
 </beans>
