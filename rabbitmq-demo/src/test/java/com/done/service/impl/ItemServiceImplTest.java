@@ -21,7 +21,7 @@ public class ItemServiceImplTest {
     @Test
     public void getItemByOrder() throws Exception {
         log.info("-----------------------------------");
-        System.out.println(itemService.getItemByOrder());
+        log.info(itemService.getItemByOrder());
     }
 
 }

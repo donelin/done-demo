@@ -8,37 +8,54 @@
     <artifactId>done-demo</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+
     <modules>
         <module>rabbitmq-demo</module>
         <module>quartz-demo</module>
+        <module>mongodb-demo</module>
+        <module>redis-demo</module>
     </modules>
-
 
     <properties>
         <junit.version>4.12</junit.version>
-        <spring.version>4.1.3.RELEASE</spring.version>
-        <mybatis.version>3.2.8</mybatis.version>
-        <mybatis.spring.version>1.2.2</mybatis.spring.version>
-        <mybatis.paginator.version>1.2.15</mybatis.paginator.version>
-        <mysql.version>5.1.32</mysql.version>
-        <slf4j.version>1.6.4</slf4j.version>
-        <jackson.version>2.4.2</jackson.version>
-        <druid.version>1.0.9</druid.version>
-        <httpclient.version>4.3.5</httpclient.version>
         <jstl.version>1.2</jstl.version>
         <servlet-api.version>2.5</servlet-api.version>
         <jsp-api.version>2.0</jsp-api.version>
-        <joda-time.version>2.5</joda-time.version>
+        <jsqlparser.version>0.9.1</jsqlparser.version>
+
+        <spring.version>4.3.0.RELEASE</spring.version>
+        <spring.data.mongodb.version>1.9.6.RELEASE</spring.data.mongodb.version>
+        <spring.data.redis.version>1.8.9.RELEASE</spring.data.redis.version>
+        <spring.data.commom.version>1.12.2.RELEASE</spring.data.commom.version>
+        <jedis.version>2.9.0</jedis.version>
+        <solrj.version>4.10.3</solrj.version>
+        <rabbit.version>1.4.0.RELEASE</rabbit.version>
+
+        <mybatis.version>3.2.8</mybatis.version>
+        <mybatis.spring.version>1.2.2</mybatis.spring.version>
+        <mybatis.paginator.version>1.2.15</mybatis.paginator.version>
+        <mybatis.mapper.version>2.3.4</mybatis.mapper.version>
+        <pagehelper.version>3.4.2-fix</pagehelper.version>
+        <druid.version>1.0.9</druid.version>
+        <mysql.version>5.1.32</mysql.version>
+
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons-io.version>1.3.2</commons-io.version>
         <commons-net.version>3.3</commons-net.version>
-        <pagehelper.version>3.4.2-fix</pagehelper.version>
-        <jsqlparser.version>0.9.1</jsqlparser.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
-        <jedis.version>2.7.2</jedis.version>
-        <solrj.version>4.10.3</solrj.version>
-        <rabbit.version>1.4.0.RELEASE</rabbit.version>
-        <org.projectlombok>1.16.6</org.projectlombok>
+
+        <slf4j.version>1.6.4</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <jackson.version>2.4.2</jackson.version>
+        <fastjson.version>1.2.20</fastjson.version>
+        <httpclient.version>4.3.5</httpclient.version>
+        <joda-time.version>2.5</joda-time.version>
+        <org.projectlombok.version>1.16.6</org.projectlombok.version>
+
+        <quartz.version>2.2.1</quartz.version>
+        <quartz.jobs.version>2.2.1</quartz.jobs.version>
+        <curator.framework.version>3.3.0</curator.framework.version>
+        <zookeeper.version>3.3.4</zookeeper.version>
     </properties>
 
     <!--  若没有<dependencyManagement>标签，那么子工程会继承父工程的所有依赖，若有，则不会-->
@@ -91,6 +108,11 @@
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
             <!-- mybatis -->
             <dependency>
                 <groupId>org.mybatis</groupId>
@@ -112,6 +134,11 @@
                 <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.abel533</groupId>
+                <artifactId>mapper</artifactId>
+                <version>${mybatis.mapper.version}</version>
+            </dependency>
             <!-- MySql -->
             <dependency>
                 <groupId>mysql</groupId>
@@ -127,27 +154,57 @@
             <!-- spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>config.spring-context</artifactId>
+                <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>config.spring-beans</artifactId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>spring-expression</artifactId>
+                <groupId>org.springframework</groupId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>config.spring-webmvc</artifactId>
+                <artifactId>spring-context-support</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>config.spring-jdbc</artifactId>
+                <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>config.spring-aspects</artifactId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <!-- jsp相关 -->
@@ -189,14 +246,71 @@
             <!-- rabbitmq中间件 -->
             <dependency>
                 <groupId>org.springframework.amqp</groupId>
-                <artifactId>config.spring-rabbit</artifactId>
+                <artifactId>spring-rabbit</artifactId>
                 <version>${rabbit.version}</version>
             </dependency>
             <!-- projectlombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>${org.projectlombok}</version>
+                <version>${org.projectlombok.version}</version>
+            </dependency>
+            <!-- mongodb -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb</artifactId>
+                <version>${spring.data.mongodb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb-log4j</artifactId>
+                <version>${spring.data.mongodb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
+                <version>${spring.data.commom.version}</version>
+             </dependency>
+            <!-- redis -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>${spring.data.redis.version}</version>
+            </dependency>
+            <!-- quartz -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz-jobs</artifactId>
+                <version>${quartz.jobs.version}</version>
+            </dependency>
+            <!-- fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!--zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.framework.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

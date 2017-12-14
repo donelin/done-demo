@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	   default-autowire="byName">
+	<!--定时任务实现类-->
+	<bean id="test1" class="com.jd.scheduling.quartz.test.Test1"/>
+	<!--任务代理-->
+	<bean id="jobDetail1" class="com.done.scheduling.quartz.JobDetailProxyBean">
+		<property name="targetObject" ref="test1"/>
+		<property name="targetMethod" value="test"/>
+	</bean>
+	<!--触发器-->
+	<bean id="cronTrigger" class="com.ab.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetail1"/>
+		<property name="cronExpression" value="0/10 * * * * ?"/>
+	</bean>
+	<!--zk配置-->
+	<bean id="zooKeeperFactory" class="com.ab.scheduling.quartz.ZookeeperFactory">
+		<property name="hosts" value="127.0.0.1:2181"/>
+		<property name="sessionTimeOut" value="15000"/>
+		<property name="nameSpace" value="zk-scheduling"/>
+	</bean>
+	<!--调度工厂-->
+	<bean id="schdulerFactory" autowire="no" class="com.ab.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+		<property name="zooKeeperFactory" ref="zooKeeperFactory"/>
+	</bean>
+</beans>
