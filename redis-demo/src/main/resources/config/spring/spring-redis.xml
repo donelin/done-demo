@@ -6,10 +6,53 @@
 	   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
+	<!-- jedis pool配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.maxActive}"/>
+		<property name="maxIdle" value="${redis.maxIdle}"/>
+		<property name="maxWaitMillis" value="${redis.maxWait}"/>
+		<property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+		<property name="minEvictableIdleTimeMillis" value="300000"></property>
+		<property name="numTestsPerEvictionRun" value="3"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="60000"></property>
+	</bean>
+
+	<!-- reids 集群配置 -->
+	<bean id="redisSentinelConfig" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+		<property name="master">
+			<bean class="org.springframework.data.redis.connection.RedisNode">
+				<property name="name" value="${redis.groupName}"/>
+			</bean>
+		</property>
+		<property name="sentinels">
+			<set>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.sentinels.1.host}"/>
+					<constructor-arg index="1" value="${redis.sentinels.1.port}"/>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.sentinels.2.host}"/>
+					<constructor-arg index="1" value="${redis.sentinels.2.port}"/>
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${redis.sentinels.3.host}"/>
+					<constructor-arg index="1" value="${redis.sentinels.3.port}"/>
+				</bean>
+			</set>
+		</property>
+	</bean>
+
+	<!-- jedisConnectionFactory-->
+	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg index="0" ref="redisSentinelConfig"/>
+		<constructor-arg index="1" ref="jedisPoolConfig"/>
+	</bean>
+
+	<!--  redis单机
 	<bean id="jedisConnectionFactory"
 		  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
 		  p:host-name="${redis.hostname}"
-		  p:port="${redis.port}" />
+		  p:port="${redis.port}" /> -->
 
 	<bean id="defaultSerializer" class="com.done.FastJsonRedisSerializer"/>
 

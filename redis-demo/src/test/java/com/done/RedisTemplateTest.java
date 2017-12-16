@@ -28,7 +28,7 @@ public class RedisTemplateTest {
     public void testStringOperations(){
         ValueOperations<String, String> stringOperations  = redisTemplate.opsForValue();
         // String类型数据存储，不设置过期时间，永久性保存
-        stringOperations.set("date1", "2017-12-01");
+        stringOperations.set("date1", "2017-12-10");
 
         // String类型数据存储，设置过期时间为80秒，采用TimeUnit控制时间单位
         stringOperations.set("date2", "2017-12-02", 80, TimeUnit.SECONDS);
