@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
@@ -17,7 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 /**
@@ -41,7 +41,7 @@ public class MongoTest {
         persons.add(p);
         Class clazz = new Class("class10",persons);
         mongoTemplate.insert(clazz);
-        log.info("insert = "+JSON.toJSONString(clazz));
+       // log.info("insert = "+JSON.toJSONString(clazz));
     }
 
     @Test
@@ -72,9 +72,10 @@ public class MongoTest {
 
     @Test
     public void testQuery(){
-        BasicQuery query = new BasicQuery("{age:{$lt:19}}");
+        Query query = new Query(Criteria.where("age").lt(19).andOperator(Criteria.where("name").is("林锋"))).with(new Sort(new Sort.Order(Sort.Direction.DESC, "createTime")));
         List<Class>  result =mongoTemplate.find(query,Class.class);
-        log.info(result);
+        //mongoTemplate.count(query,Class.class);
+        // log.info(result);
     }
 
 
