@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<context:component-scan base-package="com.done.controller"/>
+
+	<!-- 启动注解驱动（调用RequestMappingHandlerMapping,RequestMappingHandlerAdapter)处理请求 -->
+	<mvc:annotation-driven/>
+
+	<!-- 配置视图解析器  -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		  p:prefix="/WEB-INF/views/"
+		  p:suffix=".jsp"
+	/>
+
+	<!--把静态资源交给web容器默认的servlet处理，不走DispatcherServlet，这样请求时就不会由DispatcherServlet去找对应的Handler
+	   若用mvc:resources也可指定静态资源在某个目录下，这样由spring mvc框架自己去处理静态资源，并添加一些有用附加功能（比如指示客户端去缓存这个静态资源）-->
+	<mvc:default-servlet-handler/>
+
+	<!-- 文件上传
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+	 p:defaultEncoding="UTF-8" p:maxUploadSize="5242880" p:uploadTempDir="file:/c:/temp"/>-->
+	 <!-- 请求编码格式  默认iso8859-1， 文件上传大小  单位为字节（5M） ，文件上传临时路径 -->
+
+
+    <!--  开启方法级别验证支持,这样在方法上可以直接验证基础类型的入参：如 public String validateControllerParams(@NotNull(message = "name不能为空") String name)-->
+	<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">
+		<property name="validator" ref="validator"/>
+		<property name="order" value="-2147483648"/>
+	</bean>
+
+
+</beans>

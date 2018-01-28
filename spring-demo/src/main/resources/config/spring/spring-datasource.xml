@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- Druid内置提供了一个功能强大的StatFilter插件，能够详细统计SQL的执行性能，这对于线上分析数据库访问性能有帮助 -->
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<!-- 属性slowSqlMillis用来配置SQL慢的标准，执行时间超过slowSqlMillis的就是慢,缺省值为3000，也就是3秒 -->
+		<property name="slowSqlMillis" value="5000"/>
+		<property name="logSlowSql" value="true"/>
+		<!-- 当你程序中存在没有参数化的sql执行时，sql统计的效果会不好。比如：
+			select * from t where id = 1   select * from t where id = 2
+			在统计中，显示为2条sql，这不是我们希望要的效果。StatFilter提供mergeSql合并的功能，能够将这3个SQL合并为如下的SQL select * from t where id = ?
+	    -->
+		<property name="mergeSql" value="true"/>
+	</bean>
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="name" value="default"/>
+		<property name="url" value="${database.url}"/>
+		<property name="driverClassName" value="${database.driver}"/>
+		<property name="username" value="${database.user}"/>
+		<property name="password" value="${database.password}"/>
+		<property name="filters" value="log4j,wall"/> <!-- 日志用的filter:log4j  防御sql注入的filter:wall-->
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter"/>
+			</list>
+		</property>
+		<property name="maxActive" value="${database.maxActive}"/>
+		<property name="initialSize" value="${database.initialSize}"/>
+		<property name="minIdle" value="${database.maxIdle}"/>
+		<property name="maxWait" value="${database.maxWait}"/>
+		<property name="minEvictableIdleTimeMillis" value="300000"/>
+		<property name="validationQuery" value="SELECT 'x' FROM DUAL"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+		<property name="timeBetweenEvictionRunsMillis" value="30000"/>
+		<property name="poolPreparedStatements" value="true"/>
+		<property name="maxOpenPreparedStatements" value="200"/>
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+	</bean>
+
+
+</beans>

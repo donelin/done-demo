@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!--用户操作日志Aop拦截器
+	<bean id="userLogAdvisor" class="com.done.interceptor.UserLogAdvisor"/>-->
+
+	<!--用户权限Aop拦截器
+	<bean id="userSecurityAdvisor" class="com.done.interceptor.UserSecurityAdvisor"/>-->
+
+
+
+	<!-- 配置Druid和Spring关联监控配置 -->
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
+	<!-- proxy-target-class为true,表明其中声明的切面均用CGLIB动态代理,为false则是用jdk动态代理 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="druid-stat-pointcut" expression="(execution(* com.done.service..*.*(..)))
+        and !execution(* com.done.model..*.*(..))"/>
+		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+	</aop:config>
+
+</beans>

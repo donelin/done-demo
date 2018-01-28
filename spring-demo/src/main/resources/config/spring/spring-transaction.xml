@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!--加载配置文件 -->  <!-- 用 property-placeholder方式加载配置文件，则可以在java代码通过中@Value("${database.user}")注入配置文件信息 -->
+	<context:property-placeholder location="classpath:config/properties/core.properties" />
+
+	<!-- 扫描类包，加载所有spring注解的bean-->
+	<context:component-scan base-package="com.done"/>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		  p:dataSource-ref="dataSource"/>
+
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		  p:dataSource-ref="dataSource"/>
+
+	<!-- 开启事务控制的注解支持  proxy-target-class 为true 则用cglib代理业务类 ,为false则是用jdk动态代理-->
+	<tx:annotation-driven  proxy-target-class="true" transaction-manager="transactionManager" />
+
+	<!--expose-proxy=true 开启暴露Aop代理到ThreadLocal支持,支持目标对象内部的自我调用实施切面中的增强，注解风格 -->
+	<aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+
+	<!--expose-proxy=true 开启暴露Aop代理到ThreadLocal支持,支持目标对象内部的自我调用实施切面中的增强，xml风格
+	<aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>-->
+
+</beans>

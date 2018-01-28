@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>spring-demo.root</param-value>
+  </context-param>
+
+  <!-- 若log4j.properties不在classpath路径下，则需要用Log4jConfigListener加载log4j配置文件 -->
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>
+      classpath:/config/properties/log4j.properties
+    </param-value>
+  </context-param>
+  <listener>
+    <listener-class>
+      org.springframework.web.util.Log4jConfigListener
+    </listener-class>
+  </listener>
+
+
+  <!--ContextLoaderListener的作用就是启动Web容器时，读取在contextConfigLocation中定义的xml文件，
+    自动装配ApplicationContext的配置信息，并产生WebApplicationContext对象，
+    然后将这个对象放置在ServletContext的属性里，这样我们只要得到Servlet就可以得到WebApplicationContext对象，
+    并利用这个对象访问spring容器管理的bean。简单来说，就是上面这段配置为项目提供了spring支持，初始化了Ioc容器
+  -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath*:spring-context.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
+
+
+
+  <!-- 数据库连接池监控 Druid内置提供了一个StatViewServlet用于展示Druid的统计信息。
+    这个StatViewServlet的用途包括：提供监控信息展示的html页面,提供监控信息的JSON API
+    根据配置中的url-pattern来访问内置监控页面，如果是下面的配置，内置监控页面的首页是/druid/index.html
+  -->
+  <servlet>
+    <servlet-name>DruidStatView</servlet-name>
+    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DruidStatView</servlet-name>
+    <url-pattern>/druid/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- 配置Druid和Web关联监控配置,WebStatFilter用于采集web-jdbc关联监控的数据 ,监控信息显示页面 Web应用、URI监控、Session监控 -->
+  <filter>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+    <init-param>
+      <param-name>exclusions</param-name>
+      <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+    </init-param>
+    <init-param>
+      <param-name>sessionStatMaxCount</param-name>
+      <param-value>5000</param-value>
+    </init-param>
+    <!-- 你可以配置principalSessionName，使得druid能够知道当前的session的用户是谁。比如：USER
+       根据需要，把其中的USER修改为你user信息保存在session中的sessionName
+       注意：如果你session中保存的是非string类型的对象，需要重载toString方法
+    -->
+    <init-param>
+      <param-name>principalSessionName</param-name>
+      <param-value>USER</param-value>
+    </init-param>
+    <!-- 如果你的user信息保存在cookie中，你可以配置principalCookieName，使得druid知道当前的user是谁
+      根据需要，把其中的USER修改为你user信息保存在cookie中的cookieName
+    -->
+    <init-param>
+      <param-name>principalCookieName</param-name>
+      <param-value>uid</param-value>
+    </init-param>
+    <!-- 配置profileEnable能够监控单个url调用的sql列表。 -->
+    <init-param>
+      <param-name>profileEnable</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>DruidWebStatFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+
+  <servlet>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <!--在springmvc容器启动的时候，就创建DispatcherServlet对象-->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>
