@@ -109,6 +109,12 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
 
+        <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
