@@ -5,11 +5,18 @@
         <groupId>com.done</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <artifactId>springboot-demo</artifactId>
     <packaging>war</packaging>
     <name>springboot-demo Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+        <spring.version>4.3.14.RELEASE</spring.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -20,6 +27,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
     <build>
