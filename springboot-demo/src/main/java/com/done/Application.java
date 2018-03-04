@@ -1,7 +1,9 @@
 package com.done;
 
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -9,13 +11,14 @@ import org.springframework.context.annotation.ComponentScan;
  * @Date: 2018/3/1 17:27
  * @Description: 启动类
  */
-@EnableAutoConfiguration
-@ComponentScan(basePackages={"com.done"})
+@SpringBootApplication
 public class Application {
 
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Application.class, args);
+        SpringApplication app = new SpringApplication(Application.class);
+        //app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
     }
 
 }
