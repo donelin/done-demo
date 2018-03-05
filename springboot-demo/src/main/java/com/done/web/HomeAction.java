@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @Author: done
  * @Date: 2018/3/1 17:34
- * @Description: TODO
  */
 @Controller
 @RequestMapping("/home")
 @Slf4j
 public class HomeAction {
+
 
     @RequestMapping("/say")
     @ResponseBody

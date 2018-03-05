@@ -1,8 +1,9 @@
 package com.done;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -12,8 +13,9 @@ import java.util.Properties;
  * @Date: 2018/3/1 17:27
  * @Description: 启动类
  */
-@EnableAutoConfiguration
-@ComponentScan(basePackages={"com.done"})
+@SpringBootApplication
+@ComponentScan(excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.done.javaconfig.*") })
 public class Application {
 
 
@@ -23,8 +25,7 @@ public class Application {
         properties.load(in);
         SpringApplication app =  new SpringApplication(Application.class);
         app.setDefaultProperties(properties);
-        app.run();
-        //app.setBannerMode(Banner.Mode.OFF);
+        //app.setBannerMode(Banner.Mode.OFF); 设置是否显示banner
         app.run(args);
     }
 

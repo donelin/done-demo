@@ -12,7 +12,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration //通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
 @ComponentScan(basePackages = "com.done.javaconfig") //配置扫描包
-@PropertySource(value = {"classpath:core.properties"})
+@PropertySource(value = {"classpath:config/properties/core.properties"})
 public class SpringConfig {
 
     @Value("${database.url}")

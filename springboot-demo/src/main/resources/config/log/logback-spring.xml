@@ -13,8 +13,10 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 每天一归档 -->
             <fileNamePattern>${LOG_HOME}/${LOG_PREFIX}-%d{yyyyMMdd}.log.%i</fileNamePattern>
-            <!-- 单个日志文件最多500MB, 30天的日志周期，超过30天的日志会被删除，最大不能超过20GB -->
-            <maxFileSize>5KB</maxFileSize>
+            <!-- 单个日志文件最多500MB,只有文件超过500MB才会进行分割，若第一天与第二天合计的日志才500MB，则这2天的日子是放在一个文件的 -->
+            <!-- 30天的日志周期，超过30天的日志会被删除 -->
+            <!--磁盘日志合计最大不能超过20GB，超过20GB，则从存在最久的日子开始删除 -->
+            <maxFileSize>500MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>20GB</totalSizeCap>
         </rollingPolicy>
@@ -33,7 +35,6 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 每天一归档 -->
             <fileNamePattern>${LOG_HOME}/${LOG_PREFIX}-error-%d{yyyyMMdd}.log.%i</fileNamePattern>
-            <!-- 单个日志文件最多500MB, 30天的日志周期，超过30天的日志会被删除，最大不能超过20GB -->
             <maxFileSize>500MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>20GB</totalSizeCap>
@@ -56,7 +57,7 @@
 
 
     <!-- 日志输出级别  -->
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
         <appender-ref ref="ERROR_FILE" />
