@@ -24,5 +24,8 @@ public class Application {
         SpringApplication app =  new SpringApplication(Application.class);
         app.setDefaultProperties(properties);
         app.run();
+        //app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
     }
+
 }
