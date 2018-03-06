@@ -1,6 +1,8 @@
 package com.done.web;
 
+import com.done.web.setting.CoreSettings;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class HomeAction {
 
+    @Autowired
+    private CoreSettings coreSettings;
 
     @RequestMapping("/say")
     @ResponseBody
@@ -22,6 +26,7 @@ public class HomeAction {
         log.info(" info hello:{}",name);
         log.warn(" warn hello:{}",name);
         log.error(" error hello:{}",name);
+        log.debug(" hello:{}",coreSettings.getUrl());
         return "hello world";
     }
 }
