@@ -25,6 +25,10 @@
     </modules>
 
     <properties>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
         <junit.version>4.12</junit.version>
         <jstl.version>1.2</jstl.version>
         <servlet-api.version>2.5</servlet-api.version>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<configuration scan="true" scanPeriod="60 seconds"  >
+<!--
+scan: 设置为true,代表会在指定的时间内重新加载日志配置文件
+scanPeriod:当scan=true时，日志配置文件会在指定的单位时间内重新加载，默认是每分钟会重载一次
+-->
+<configuration scan="false" scanPeriod="60 seconds" debug="false">
 
     <!--定义日志文件的存储地址和前缀名-->
     <property name="LOG_HOME" value="C:/logs" />
@@ -52,12 +55,12 @@
         </encoder>
     </appender>
     
-  <logger name="druid.sql" level="debug"  />
-  <logger name="com.done" level="debug"   />
+    <logger name="druid.sql" level="debug"  />
+    <logger name="com.done" level="debug"   />
 
 
     <!-- 日志输出级别  -->
-    <root level="DEBUG">
+    <root level="debug">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
         <appender-ref ref="ERROR_FILE" />
