@@ -1,14 +1,10 @@
 package com.done;
 
-import com.alibaba.fastjson.JSON;
 import com.done.dao.UserDAO;
-import com.done.javaconfig.SpringConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
@@ -24,9 +20,8 @@ import java.util.Properties;
  */
 @SpringBootApplication
 @ComponentScan(excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.done.javaconfig.*"),
-        @ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE,classes = SpringConfig.class)})
-@EnableTransactionManagement(proxyTargetClass=true,mode= AdviceMode.PROXY)
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.done.javaconfig.*") })
+@EnableTransactionManagement
 @EnableAspectJAutoProxy(proxyTargetClass=true,exposeProxy=true)
 @Slf4j
 public class Application {
@@ -45,9 +40,9 @@ public class Application {
 //      String[] beanNames = context.getBeanDefinitionNames();
 //      log.info("dataSource={}",dataSource);
 //      log.info("beanNames={}", JSON.toJSONString(beanNames));
-        UserDAO dao = (UserDAO) context.getBean("userDAO");
-        dao.save("linfeng","linxia");
-        context.close();
+     //   UserDAO dao = (UserDAO) context.getBean("userDAO");
+    //    dao.save("linfeng","linxia");
+    //    context.close();
     }
 
 }

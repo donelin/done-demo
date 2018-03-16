@@ -1,6 +1,7 @@
 package com.done.dao;
 
 import com.alibaba.fastjson.JSON;
+import com.done.web.config.UserLog;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
@@ -63,7 +64,6 @@ public class UserDAO{
             // }
 
         }
-
 
         @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW)
         public void findAndSave(){

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  * @Date: 2018/3/6 16:18
  */
 @Data
-@Component
 @PropertySource("classpath:/config/properties/core.properties")
 @ConfigurationProperties(prefix="database")
+@Component
 public class CoreSettings {
 
     private String driver;
