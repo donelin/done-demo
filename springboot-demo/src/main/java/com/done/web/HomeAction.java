@@ -4,7 +4,9 @@ import com.done.web.setting.CoreSettings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -19,8 +21,9 @@ public class HomeAction {
     @Autowired
     private CoreSettings coreSettings;
 
-    @RequestMapping("/say")
+    @RequestMapping(value = "/say",method = RequestMethod.GET)
     @ResponseBody
+    //@GetMapping("/say")
     public String home(String name) {
         log.debug(" debug hello:{}",name);
         log.info(" info hello:{}",name);

@@ -27,12 +27,6 @@ public class SpringConfig {
     @Value("${database.password}")
     private String databasePassword;
 
-
-    @Bean // 通过该注解来表明是一个Bean对象，相当于xml中的<bean>
-    public UserDAO getUserDAO(){
-        return new UserDAO(); // 直接new对象做演示
-    }
-
     @Bean
     public DruidDataSource dataSource(){
         DruidDataSource dataSource = new DruidDataSource();
@@ -43,5 +37,13 @@ public class SpringConfig {
         dataSource.setPassword(databasePassword);
         return dataSource;
     }
+
+
+    @Bean // 通过该注解来表明是一个Bean对象，相当于xml中的<CycleBeanPostprocessor>
+    public UserDAO getUserDAO(){
+        return new UserDAO(); // 直接new对象做演示
+    }
+
+
 
 }

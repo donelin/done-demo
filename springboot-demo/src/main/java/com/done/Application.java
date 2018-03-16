@@ -2,6 +2,7 @@ package com.done;
 
 import com.alibaba.fastjson.JSON;
 import com.done.dao.UserDAO;
+import com.done.javaconfig.SpringConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +24,8 @@ import java.util.Properties;
  */
 @SpringBootApplication
 @ComponentScan(excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.done.javaconfig.*") })
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.done.javaconfig.*"),
+        @ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE,classes = SpringConfig.class)})
 @EnableTransactionManagement(proxyTargetClass=true,mode= AdviceMode.PROXY)
 @EnableAspectJAutoProxy(proxyTargetClass=true,exposeProxy=true)
 @Slf4j
@@ -38,6 +40,7 @@ public class Application {
         SpringApplication app =  new SpringApplication(Application.class);
         app.setDefaultProperties(properties);
         ConfigurableApplicationContext context = app.run(args);
+        //log.info("=============== BeanDefinition={}",context.getBeanFactory().getBeanDefinition("aeep").getBeanClassName());
 //      DataSource dataSource = (DataSource) context.getBean("dataSource");
 //      String[] beanNames = context.getBeanDefinitionNames();
 //      log.info("dataSource={}",dataSource);

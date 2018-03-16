@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.10.RELEASE</version>
-    </parent>
+    <!--<parent>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+        <!--<version>1.5.10.RELEASE</version>-->
+    <!--</parent>-->
 
     <groupId>com.done</groupId>
     <artifactId>done-demo</artifactId>
@@ -26,8 +26,11 @@
 
     <properties>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven-resources-plugin_version>2.6</maven-resources-plugin_version>
+        <maven_compiler_plugin_version>3.3</maven_compiler_plugin_version>
+        <java_source_version>1.8</java_source_version>
+        <java_target_version>1.8</java_target_version>
+        <file_encoding>UTF-8</file_encoding>
 
         <junit.version>4.12</junit.version>
         <jstl.version>1.2</jstl.version>
@@ -36,6 +39,7 @@
         <jsqlparser.version>0.9.1</jsqlparser.version>
 
         <spring.version>4.3.6.RELEASE</spring.version>
+        <springboot.version>1.5.10.RELEASE</springboot.version>
         <spring.data.mongodb.version>1.9.6.RELEASE</spring.data.mongodb.version>
         <spring.data.redis.version>1.8.9.RELEASE</spring.data.redis.version>
         <spring.data.commom.version>1.12.2.RELEASE</spring.data.commom.version>
@@ -76,6 +80,15 @@
     <!--  若没有<dependencyManagement>标签，那么子工程会继承父工程的所有依赖，若有，则不会-->
     <dependencyManagement>
         <dependencies>
+            <!--ImportdependencymanagementfromSpringBoot-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- 时间操作组件 -->
             <dependency>
                 <groupId>joda-time</groupId>
@@ -354,22 +367,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
+                <version>${maven-resources-plugin_version}</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${file_encoding}</encoding>
                 </configuration>
             </plugin>
             <!-- java编译插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+                <version>${maven_compiler_plugin_version}</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>UTF-8</encoding>
+                    <source>${java_source_version}</source>
+                    <target>${java_target_version}</target>
+                    <encoding>${file_encoding}</encoding>
+                    <compilerArguments>
+                        <verbose />
+                        <bootclasspath>
+                            ${java.home}/lib/rt.jar;${java.home}/lib/resources.jar;${java.home}/lib/jsse.jar;${java.home}/lib/jce.jar;${java.home}/lib/charsets.jar;${java.home}/lib/jfr.jar
+                        </bootclasspath>
+                    </compilerArguments>
                 </configuration>
             </plugin>
+
         </plugins>
 
         <pluginManagement>

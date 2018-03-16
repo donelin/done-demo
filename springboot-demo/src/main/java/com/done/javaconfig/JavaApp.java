@@ -1,6 +1,8 @@
 package com.done.javaconfig;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
@@ -16,6 +18,10 @@ public class JavaApp {
 
         // 在Spring容器中获取Bean对象
         UserService userService = context.getBean(UserService.class);
+        String [] beans = context.getBeanDefinitionNames();
+        BeanDefinition definition = context.getBeanDefinition("springConfig");
+
+        SpringConfig config = (SpringConfig) context.getBean(definition.getBeanClassName());
 
         // 调用对象中的方法
         List<User> list = userService.queryUserList();
