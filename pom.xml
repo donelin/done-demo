@@ -414,6 +414,7 @@
                         <configurationDirectory>conf</configurationDirectory>
                         <!-- 拷贝配置文件到上面的目录中 -->
                         <copyConfigurationDirectory>true</copyConfigurationDirectory>
+                        <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
                         <!-- 从哪里拷贝配置文件 (默认src/main/config) -->
                         <configurationSourceDirectory>src/main/filters/${env}</configurationSourceDirectory>
                         <!-- lib目录中jar的存放规则，默认是${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录 -->
