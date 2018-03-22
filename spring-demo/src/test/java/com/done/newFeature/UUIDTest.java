@@ -2,12 +2,14 @@ package com.done.newFeature;
 
 import com.done.util.UUIDUtils;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
  * Created by Done Lin on 2018/1/28.
  */
-@Log4j
+//@Log4j
+@Slf4j
 public class UUIDTest {
 
 

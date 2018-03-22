@@ -12,6 +12,9 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <project_name>springboot-demo</project_name>
+        <springboot_main>com.done.Application</springboot_main>
+
         <mongodb.driver.version>3.4.3</mongodb.driver.version>
         <spring.data.mongodb.version>1.10.10.RELEASE</spring.data.mongodb.version>
         <spring.version>4.3.14.RELEASE</spring.version>
@@ -72,5 +75,11 @@
     </dependencies>
     <build>
         <finalName>springboot-demo</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 </project>

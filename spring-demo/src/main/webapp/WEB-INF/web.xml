@@ -9,7 +9,7 @@
     <param-value>spring-demo.root</param-value>
   </context-param>
 
-  <!-- 若log4j.properties不在classpath路径下，则需要用Log4jConfigListener加载log4j配置文件 -->
+  <!-- 若log4j.properties不在classpath路径下，则需要用Log4jConfigListener加载log4j配置文件
   <context-param>
     <param-name>log4jConfigLocation</param-name>
     <param-value>
@@ -20,7 +20,8 @@
     <listener-class>
       org.springframework.web.util.Log4jConfigListener
     </listener-class>
-  </listener>
+  </listener>-->
+
 
 
   <!--ContextLoaderListener的作用就是启动Web容器时，读取在contextConfigLocation中定义的xml文件，
@@ -39,11 +40,20 @@
   </listener>
 
 
+  <servlet>
+    <servlet-name>ViewStatusMessages</servlet-name>
+    <servlet-class>ch.qos.logback.classic.ViewStatusMessagesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewStatusMessages</servlet-name>
+    <url-pattern>/lbClassicStatus</url-pattern>
+  </servlet-mapping>
 
-  <!-- 数据库连接池监控 Druid内置提供了一个StatViewServlet用于展示Druid的统计信息。
-    这个StatViewServlet的用途包括：提供监控信息展示的html页面,提供监控信息的JSON API
-    根据配置中的url-pattern来访问内置监控页面，如果是下面的配置，内置监控页面的首页是/druid/index.html
-  -->
+
+        <!-- 数据库连接池监控 Druid内置提供了一个StatViewServlet用于展示Druid的统计信息。
+          这个StatViewServlet的用途包括：提供监控信息展示的html页面,提供监控信息的JSON API
+          根据配置中的url-pattern来访问内置监控页面，如果是下面的配置，内置监控页面的首页是/druid/index.html
+        -->
   <servlet>
     <servlet-name>DruidStatView</servlet-name>
     <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>

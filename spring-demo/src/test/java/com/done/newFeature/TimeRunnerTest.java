@@ -1,6 +1,7 @@
 package com.done.newFeature;
 
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -8,7 +9,8 @@ import java.util.TimerTask;
 /**
  * Created by Done Lin on 2018/1/8.
  */
-@Log4j
+//@Log4j
+@Slf4j
 public class TimeRunnerTest {
     public static void main(String[] args){
         Timer timer = new Timer();
@@ -27,7 +29,8 @@ class SimpleTimerTask extends TimerTask {
     }
 }
 
-@Log4j
+//@Log4j
+@Slf4j
 class SystemLog{
   public static void  outputstream()  {
       try {

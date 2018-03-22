@@ -2,12 +2,16 @@
 <!--
 scan: 设置为true,代表会在指定的时间内重新加载日志配置文件
 scanPeriod:当scan=true时，日志配置文件会在指定的单位时间内重新加载，默认是每分钟会重载一次
+packagingData 可以在日志后看到依赖jar包名和版本，很费性能，不建议开启
 -->
-<configuration scan="true" scanPeriod="60 seconds" debug="false">
+<configuration scan="true" scanPeriod="1 seconds" debug="true">
+    <contextName>spring-demo</contextName>
 
-    <!--定义日志文件的存储地址和前缀名-->
+<!--定义日志文件的存储地址和前缀名-->
     <property name="LOG_HOME" value="C:/logs" />
-    <property name="LOG_PREFIX" value="springboot-demo" />
+    <property name="LOG_PREFIX" value="spring-demo" />
+
+    <property resource="system.properties"/>
 
 
 	<!-- 一般信息按照每天生成日志文件 -->
@@ -49,18 +53,22 @@ scanPeriod:当scan=true时，日志配置文件会在指定的单位时间内重
     </appender>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
         <encoder>
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
     </appender>
-    
-  <logger name="druid.sql" level="DEBUG"  />
-  <logger name="com.done" level="DEBUG"   />
+
+
+  <!--<logger name="druid.sql" level="DEBUG"  />-->
+  <!--<logger name="com.done" level="info"   />-->
 
 
     <!-- 日志输出级别  -->
-    <root level="DEBUG">
+    <root level="info">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
         <appender-ref ref="ERROR_FILE" />
