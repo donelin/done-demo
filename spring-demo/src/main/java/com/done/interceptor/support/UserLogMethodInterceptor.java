@@ -7,6 +7,7 @@ package com.done.interceptor.support;
 import com.done.model.persist.UserOperationLog;
 import com.done.service.UserOperationLogService;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.ArrayUtils;
@@ -18,7 +19,8 @@ import java.lang.reflect.Method;
 /**
  * 增强（记录用户操作日志）
  */
-@Log4j
+//@Log4j
+@Slf4j
 public class UserLogMethodInterceptor implements MethodInterceptor{
 
     private ApplicationContext applicationContext;

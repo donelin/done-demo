@@ -7,6 +7,7 @@ import com.done.interceptor.support.UserLog;
 import com.done.model.persist.User;
 import com.done.model.persist.UserOperationLog;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.internal.engine.groups.Group;
 import org.springframework.aop.framework.AopContext;
@@ -24,7 +25,8 @@ import java.text.ParseException;
  * Created by Done Lin on 2017/12/17.
  */
 @Service
-@Log4j
+//@Log4j
+@Slf4j
 @Validated
 public class UserService {
 

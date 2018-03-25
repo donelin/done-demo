@@ -4,12 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!--<parent>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
-        <!--<version>1.5.10.RELEASE</version>-->
-    <!--</parent>-->
-
     <groupId>com.done</groupId>
     <artifactId>done-demo</artifactId>
     <packaging>pom</packaging>
@@ -26,8 +20,11 @@
 
     <properties>
 
-        <maven-resources-plugin_version>2.6</maven-resources-plugin_version>
+        <maven_resources_plugin_version>2.6</maven_resources_plugin_version>
         <maven_compiler_plugin_version>3.3</maven_compiler_plugin_version>
+        <appassembler_maven_plugin_version>1.2.1</appassembler_maven_plugin_version>
+        <project_name>done-demmo</project_name>
+        <springboot_main>com.done.Application</springboot_main>
         <java_source_version>1.8</java_source_version>
         <java_target_version>1.8</java_target_version>
         <file_encoding>UTF-8</file_encoding>
@@ -43,10 +40,14 @@
         <spring.data.mongodb.version>1.9.6.RELEASE</spring.data.mongodb.version>
         <spring.data.redis.version>1.8.9.RELEASE</spring.data.redis.version>
         <spring.data.commom.version>1.12.2.RELEASE</spring.data.commom.version>
+
         <jedis.version>2.9.0</jedis.version>
         <solrj.version>4.10.3</solrj.version>
         <rabbit.version>1.4.0.RELEASE</rabbit.version>
-
+        <quartz.version>2.2.1</quartz.version>
+        <quartz.jobs.version>2.2.1</quartz.jobs.version>
+        <curator.framework.version>3.3.0</curator.framework.version>
+        <zookeeper.version>3.3.4</zookeeper.version>
         <mybatis.version>3.2.8</mybatis.version>
         <mybatis.spring.version>1.2.2</mybatis.spring.version>
         <mybatis.paginator.version>1.2.15</mybatis.paginator.version>
@@ -60,18 +61,15 @@
         <commons-net.version>3.3</commons-net.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
 
-        <slf4j.version>1.6.4</slf4j.version>
+        <slf4j.version>1.7.21</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <logback.version>1.2.3</logback.version>
+        <logback.ext.version>0.1.4</logback.ext.version>
         <jackson.version>2.7.4</jackson.version>
         <fastjson.version>1.2.20</fastjson.version>
         <httpclient.version>4.3.5</httpclient.version>
         <joda-time.version>2.5</joda-time.version>
         <org.projectlombok.version>1.16.6</org.projectlombok.version>
-
-        <quartz.version>2.2.1</quartz.version>
-        <quartz.jobs.version>2.2.1</quartz.jobs.version>
-        <curator.framework.version>3.3.0</curator.framework.version>
-        <zookeeper.version>3.3.4</zookeeper.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
         <hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
         <hibernate-core.version>5.2.2.Final</hibernate-core.version>
@@ -141,6 +139,21 @@
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
             <!-- mybatis -->
             <dependency>
                 <groupId>org.mybatis</groupId>
@@ -188,7 +201,7 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
-                <version>4.3.6.RELEASE</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -377,92 +390,85 @@
 
     <build>
         <finalName>done-demo</finalName>
-        <plugins>
-            <!-- 资源文件拷贝插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven-resources-plugin_version}</version>
-                <configuration>
-                    <encoding>${file_encoding}</encoding>
-                </configuration>
-            </plugin>
-            <!-- java编译插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven_compiler_plugin_version}</version>
-                <configuration>
-                    <source>${java_source_version}</source>
-                    <target>${java_target_version}</target>
-                    <encoding>${file_encoding}</encoding>
-                    <compilerArguments>
-                        <verbose />
-                        <bootclasspath>
-                            ${java.home}/lib/rt.jar;${java.home}/lib/resources.jar;${java.home}/lib/jsse.jar;${java.home}/lib/jce.jar;${java.home}/lib/charsets.jar;${java.home}/lib/jfr.jar
-                        </bootclasspath>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-
-            <!--springboot打jar包  命令：mvn clean package appassembler:assemble -Dmaven.test.skip=true -P dev-->
-            <!--官网地址 ：http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html -->
-          <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <configuration>
-                    <!-- 生成linux, windows两种平台的执行脚本 -->
-                    <platforms>
-                        <platform>windows</platform>
-                        <platform>unix</platform>
-                    </platforms>
-                    <!-- 根目录 -->
-                    <assembleDirectory>${project.build.directory}/springboot-demo</assembleDirectory>
-                    <!-- 打包的jar，以及maven依赖的jar放到这个目录里面 -->
-                    <repositoryName>lib</repositoryName>
-                    <!-- 可执行脚本的目录 -->
-                    <binFolder>bin</binFolder>
-                    <!-- 配置文件的目标目录 -->
-                    <configurationDirectory>conf</configurationDirectory>
-                    <!-- 拷贝配置文件到上面的目录中 -->
-                    <copyConfigurationDirectory>true</copyConfigurationDirectory>
-                    <!-- 从哪里拷贝配置文件 (默认src/main/config) -->
-                    <configurationSourceDirectory>src/main/resources/filter/${env}</configurationSourceDirectory>
-                    <!-- lib目录中jar的存放规则，默认是${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录 -->
-                    <repositoryLayout>flat</repositoryLayout>
-                    <!--<encoding>UTF-8</encoding>-->
-                    <!--<logsDirectory>logs</logsDirectory>-->
-                    <!--<tempDirectory>tmp</tempDirectory>-->
-                    <programs>
-                        <program>
-                            <!-- 启动类 -->
-                            <mainClass>com.done.Application</mainClass>
-                            <jvmSettings>
-                                <extraArguments>
-                                    <extraArgument>-server</extraArgument>
-                                    <extraArgument>-Xmx1G</extraArgument>
-                                    <extraArgument>-Xms1G</extraArgument>
-                                </extraArguments>
-                            </jvmSettings>
-                        </program>
-                    </programs>
-                </configuration>
-            </plugin>
-        </plugins>
-
         <pluginManagement>
             <plugins>
+                <!--springboot打jar包  命令：mvn clean package appassembler:assemble -Dmaven.test.skip=true -P dev-->
+                <!--官网地址 ：http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>appassembler-maven-plugin</artifactId>
+                    <version>${appassembler_maven_plugin_version}</version>
+                    <configuration>
+                        <!-- 生成linux, windows两种平台的执行脚本 -->
+                        <platforms>
+                            <platform>windows</platform>
+                            <platform>unix</platform>
+                        </platforms>
+                        <!-- 根目录 -->
+                        <assembleDirectory>${project.build.directory}/${project_name}</assembleDirectory>
+                        <!-- 打包的jar，以及maven依赖的jar放到这个目录里面 -->
+                        <repositoryName>lib</repositoryName>
+                        <!-- 可执行脚本的目录 -->
+                        <binFolder>bin</binFolder>
+                        <!-- 配置文件的目标目录 -->
+                        <configurationDirectory>conf</configurationDirectory>
+                        <!-- 拷贝配置文件到上面的目录中 -->
+                        <copyConfigurationDirectory>true</copyConfigurationDirectory>
+                        <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+                        <!-- 从哪里拷贝配置文件 (默认src/main/config) -->
+                        <configurationSourceDirectory>src/main/filters/${env}</configurationSourceDirectory>
+                        <!-- lib目录中jar的存放规则，默认是${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录 -->
+                        <repositoryLayout>flat</repositoryLayout>
+                        <!--<encoding>UTF-8</encoding>-->
+                        <!--<logsDirectory>logs</logsDirectory>-->
+                        <!--<tempDirectory>tmp</tempDirectory>-->
+                        <programs>
+                            <program>
+                                <!-- 启动类 -->
+                                <mainClass>${springboot_main}</mainClass>
+                                <jvmSettings>
+                                    <extraArguments>
+                                        <extraArgument>-server</extraArgument>
+                                        <extraArgument>-Xmx1G</extraArgument>
+                                        <extraArgument>-Xms1G</extraArgument>
+                                    </extraArguments>
+                                </jvmSettings>
+                            </program>
+                        </programs>
+                    </configuration>
+                </plugin>
+
+                <!-- 资源文件拷贝插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven_resources_plugin_version}</version>
+                    <configuration>
+                        <encoding>${file_encoding}</encoding>
+                    </configuration>
+                </plugin>
+                <!-- java编译插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven_compiler_plugin_version}</version>
+                    <configuration>
+                        <source>${java_source_version}</source>
+                        <target>${java_target_version}</target>
+                        <encoding>${file_encoding}</encoding>
+                        <compilerArguments>
+                            <verbose />
+                            <bootclasspath>
+                                ${java.home}/lib/rt.jar;${java.home}/lib/resources.jar;${java.home}/lib/jsse.jar;${java.home}/lib/jce.jar;${java.home}/lib/charsets.jar;${java.home}/lib/jfr.jar
+                            </bootclasspath>
+                        </compilerArguments>
+                    </configuration>
+                </plugin>
                 <!-- 配置Tomcat插件 -->
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>2.2</version>
-                </plugin>
-
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.4</version>
                 </plugin>
             </plugins>
         </pluginManagement>

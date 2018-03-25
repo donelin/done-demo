@@ -5,6 +5,7 @@ import com.done.interceptor.support.UserLog;
 import com.done.model.persist.User;
 import com.done.model.persist.UserOperationLog;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-context.xml")
-@Log4j
+//@Log4j
+@Slf4j
 public class UserServiceTest {
 
     @Autowired

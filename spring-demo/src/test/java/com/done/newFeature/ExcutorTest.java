@@ -1,6 +1,7 @@
 package com.done.newFeature;
 
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.SyncTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -29,7 +30,8 @@ public class ExcutorTest {
 }
 
 
-@Log4j
+//@Log4j
+@Slf4j
 class SimpleTask implements Runnable{
 
     @Override

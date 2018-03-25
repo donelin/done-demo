@@ -19,8 +19,8 @@ import java.util.Properties;
  * @Description: 启动类
  */
 @SpringBootApplication
-@ComponentScan(excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.done.javaconfig.*") })
+//@ComponentScan(excludeFilters = {
+//        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.done.javaconfig.*") })
 @EnableTransactionManagement
 @EnableAspectJAutoProxy(proxyTargetClass=true,exposeProxy=true)
 @Slf4j

@@ -6,6 +6,7 @@ import com.done.service.support.Student;
 import com.done.service.support.UserClass;
 import com.done.util.ValidateUtils;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,7 +21,8 @@ import java.util.UUID;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-context.xml")
-@Log4j
+//@Log4j
+@Slf4j
 public class BeanValidateTest {
 
     @Test

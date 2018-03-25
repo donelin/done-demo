@@ -7,7 +7,10 @@ import com.done.model.persist.User;
 import com.done.service.IValdateInterface;
 import com.done.service.UserService;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.NotBlank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +27,12 @@ import javax.validation.constraints.NotNull;
  */
 @Controller
 @RequestMapping("/user")
-@Log4j
+//@Log4j
 //@Validated
+//@Slf4j
 public class UserController {
+
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -37,7 +43,11 @@ public class UserController {
 
     @RequestMapping("sayHello")
     public String sayHello(){
-
+        String s = "word";
+        log.debug("hellohttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatus{}",s);
+        log.info("hellohttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatus{}",s);
+        log.warn("hellohttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatus{}",s);
+        log.error("hellohttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatushttp://127.0.0.1:8088/yourWebapp/lbClassicStatus{}",s);
         return "hello";
     }
 

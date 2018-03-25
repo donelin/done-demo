@@ -1,6 +1,7 @@
 package com.done.newFeature;
 
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
@@ -14,7 +15,8 @@ import java.time.temporal.TemporalAdjusters;
 /**
  * Created by Done Lin on 2017/12/17.
  */
-@Log4j
+//@Log4j
+@Slf4j
 public class LocalDateTimeTest {
 
     @Test

@@ -22,12 +22,12 @@
 		<property name="driverClassName" value="${database.driver}"/>
 		<property name="username" value="${database.user}"/>
 		<property name="password" value="${database.password}"/>
-		<property name="filters" value="log4j,wall"/> <!-- 日志用的filter:log4j  防御sql注入的filter:wall-->
+		<!--  <property name="filters" value="log4j,wall"/> 日志用的filter:log4j  防御sql注入的filter:wall
 		<property name="proxyFilters">
 			<list>
 				<ref bean="stat-filter"/>
 			</list>
-		</property>
+		</property>-->
 		<property name="maxActive" value="${database.maxActive}"/>
 		<property name="initialSize" value="${database.initialSize}"/>
 		<property name="minIdle" value="${database.maxIdle}"/>
