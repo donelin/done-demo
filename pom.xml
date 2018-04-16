@@ -16,6 +16,7 @@
         <module>redis-demo</module>
         <module>spring-demo</module>
         <module>springboot-demo</module>
+        <module>springboot-demo-starter</module>
     </modules>
 
     <properties>

@@ -55,8 +55,8 @@ scanPeriod:当scan=true时，日志配置文件会在指定的单位时间内重
         </encoder>
     </appender>
     
-  <logger name="druid.sql" level="ERROR"  />
-  <logger name="com.done" level="ERROR"   />
+  <logger name="druid.sql" level="INFO"  />
+  <logger name="com.done" level="INFO"   />
 
 
     <!-- 日志输出级别  -->
