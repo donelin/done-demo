@@ -14,6 +14,7 @@ import org.springframework.transaction.support.TransactionSynchronizationAdapter
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,7 +83,8 @@ public class UserDAO{
 }
 
 @Data
-class User{
+class User implements Serializable{
+    private static final long serialVersionUID = 923472317594027091L;
     private String id;
     private String name;
 }
