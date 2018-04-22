@@ -2,9 +2,6 @@ package com.done.springboot.multiDataSource;
 
 import com.alibaba.druid.support.http.WebStatFilter;
 
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
-
 
 /**
  *

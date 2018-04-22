@@ -2,9 +2,6 @@ package com.done.springboot.multiDataSource;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
-
 /**
  * Created by Done Lin on 2018/4/21.
  * druid数据源状态监控.
