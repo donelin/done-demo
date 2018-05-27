@@ -17,6 +17,7 @@
         <module>spring-demo</module>
         <module>springboot-demo</module>
         <module>springboot-demo-starter</module>
+        <module>rocketmq-demo</module>
     </modules>
 
     <properties>
@@ -74,6 +75,7 @@
         <validation-api.version>1.1.0.Final</validation-api.version>
         <hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
         <hibernate-core.version>5.2.2.Final</hibernate-core.version>
+        <rocketmq.version>4.2.0</rocketmq.version>
     </properties>
 
     <!--  若没有<dependencyManagement>标签，那么子工程会继承父工程的所有依赖，若有，则不会-->
@@ -335,6 +337,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <!-- rocketmq -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
             </dependency>
             <!--zookeeper -->
             <dependency>
