@@ -60,7 +60,7 @@ scanPeriod:当scan=true时，日志配置文件会在指定的单位时间内重
 
 
     <!-- 日志输出级别  -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
         <appender-ref ref="ERROR_FILE" />

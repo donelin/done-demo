@@ -1,6 +1,5 @@
 package com.done.springboot.multiDataSource.testDemo;
 
-import com.done.springboot.multiDataSource.MuliMongodbService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

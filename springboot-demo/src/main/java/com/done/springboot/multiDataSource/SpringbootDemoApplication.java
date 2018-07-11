@@ -36,15 +36,15 @@ public class SpringbootDemoApplication {
         properties.load(inputStream);
         SpringApplication app = new SpringApplication(SpringbootDemoApplication.class);
         app.setDefaultProperties(properties);
-        ConfigurableApplicationContext context = app.run();
+        ConfigurableApplicationContext context = app.run("aa","bb");
 //        Map<String,DataSource> map = context.getBeansOfType(DataSource.class);
 //        for(Map.Entry<String, DataSource> entry:map.entrySet()){
 //            System.out.println(JSON.toJSONString(entry.getKey()+" = "+entry.getValue().getClass()));
 //        }
-//        context.getBean(UserDao.class).save();
+        context.getBean(UserDao.class).save();
 //        context.getBean(RoleDao.class).save();
 //        context.getBean(ComplexService.class).save();
-        context.getBean(MuliMongodbService.class).save();
+//        context.getBean(MuliMongodbService.class).save();
         context.close();
     }
 }

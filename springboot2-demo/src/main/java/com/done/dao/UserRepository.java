@@ -17,7 +17,7 @@ public class UserRepository {
 
     public Mono<User> getUserById(String id) {
         return Mono.justOrEmpty(users.stream().filter(user -> {
-            return user.getId().equals(Long.valueOf(id));
+            return user.getId().equals(id);
         }).findFirst().orElse(null));
     }
 

@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.done.redis.EnableRedis;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -16,7 +18,7 @@ import java.util.concurrent.Callable;
 /**
  * Created by Done Lin on 2018/4/6.
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class,MongoDataAutoConfiguration.class})
 @EnableAsync
 @Import(MyImportSelector.class)
 @EnableLog

@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
  * 测试选举主节点做分布式定时器
  */
 @Slf4j
-@Component
+//@Component
 public class LeaderSelectorTask extends LeaderSelectorListenerAdapter implements ApplicationListener<ContextRefreshedEvent>,InitializingBean, DisposableBean {
 
     @Autowired

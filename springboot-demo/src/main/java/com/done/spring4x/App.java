@@ -14,8 +14,6 @@ public class App {
         System.out.println(context.getBean("jeep"));
         System.out.println(context.getBean(JeepFactoryBean.class));
         System.out.println(context.getBean("&jeep"));
-        System.out.println(context.getBean("&jeep"));
-
         System.out.println(context.getBean("myDog"));
         System.out.println(((MyCat)context.getBean("myCat")).getContext());
         context.getBeansOfType(MyPig.class).values().forEach(System.out::println);
