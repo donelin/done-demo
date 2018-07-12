@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
+ * 启动参数：--spring.profiles.active=test
  * Created by Done Lin on 2018/4/6.
  */
 @SpringBootApplication
