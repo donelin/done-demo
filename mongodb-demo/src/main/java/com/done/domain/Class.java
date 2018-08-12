@@ -30,6 +30,7 @@ public class Class {
     public Class(String className, List<Person> personList){
         this.className=className;
         this.personList=personList;
+        int donefen =15;
     }
 
 
