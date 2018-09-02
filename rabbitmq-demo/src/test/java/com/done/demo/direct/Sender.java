@@ -14,7 +14,7 @@ import java.util.UUID;
 
 /**
  * Created by Done Lin on 2017/5/9.
- * 使用direct类型实现：消息会被推送至绑定键（binding key）和消息发布附带的选择键（routing key）完全匹配的队列
+ * 使用direct类型实现：消息会被推送至绑定键（binding key）和消息发布附带的选择键（routing key）完全匹配的队列,（注意routing key 必须完全匹配，不能用通配符）
  */
 @Log4j
 public class Sender {
@@ -46,7 +46,7 @@ public class Sender {
             channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes());
             log.info(" [x] Sent '" + message + "'");
         }
-        channel.close();
+         channel.close();
         connection.close();
     }
 

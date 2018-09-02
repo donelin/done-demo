@@ -29,7 +29,7 @@ public class InfoTopicReceiver {
         // 随机生成一个队列
         String queueName = channel.queueDeclare().getQueue();
         // 接收所有与kernel相关的消息
-        channel.queueBind(queueName, EXCHANGE_NAME, "*.info");
+        channel.queueBind(queueName, EXCHANGE_NAME, "#.info");
 
         log.info(" [*] Waiting for critical messages. To exit press CTRL+C");
 

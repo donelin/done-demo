@@ -1,5 +1,8 @@
 package com.done.app;
 
+import com.alibaba.fastjson.JSON;
+import com.rabbitmq.tools.json.JSONReader;
+import com.rabbitmq.tools.json.JSONUtil;
 import lombok.extern.log4j.Log4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.ApplicationContext;
@@ -10,9 +13,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 @Log4j
 public class Consumer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ApplicationContext context = new ClassPathXmlApplicationContext("config/spring.xml");
-        RabbitTemplate rabbitTemplate = (RabbitTemplate) context.getBean("rabbitTemplate");
-       log.info("收到消息: " + rabbitTemplate.receiveAndConvert("spring.queue").toString());
+        Thread.sleep(1000000);
+        System.out.println("----------- 进程结束 ---------------");
     }
 }

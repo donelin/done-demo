@@ -13,10 +13,30 @@
 
 	<!-- MQ的管理，包括队列、交换器等 -->
 	<rabbit:admin connection-factory="connectionFactory"/>
-	
+
+	<rabbit:queue name="spring.queue" durable="true" />
+
 	<!--声明交换机  durable:持久化，队列或交换机是否要存储到磁盘 也可以存储到内容 -->
-	<rabbit:topic-exchange name="${rabbitmq.exchange}" auto-declare="true" durable="true" />
-	
+	<rabbit:topic-exchange name="${rabbitmq.exchange}" auto-declare="true" durable="true" >
+		<rabbit:bindings>
+			<rabbit:binding pattern="spring.queue.syn" queue="spring.queue"/>
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+
+	<!--定义消费者类 -->
+	<bean id="springTestConsumer" class="com.done.app.SpringTestConsumer"/>
+
+
+	<bean id="messageListenerContainer" class="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<!--设置Message Listener为Adapter对象 -->
+		<property name="messageListener" ref="springTestConsumer"/>
+		<property name="queues" ref="spring.queue" />
+		<property name="prefetchCount" value="5"/>
+		<property name="concurrentConsumers" value="1"/>
+		<property name="exclusive" value="true"/>
+	</bean>
+
 	<!-- 定义模板 -->
 	<rabbit:template id="rabbitTemplate" connection-factory="connectionFactory"/>
 </beans>

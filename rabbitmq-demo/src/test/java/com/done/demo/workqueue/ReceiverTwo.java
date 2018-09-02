@@ -4,6 +4,8 @@ import com.rabbitmq.client.*;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * Created by Done Lin on 2017/5/8.
  */
@@ -41,12 +43,15 @@ public class ReceiverTwo {
          *
          */
         boolean ack = false; //打开应答机制
+
+        //公平转发  设置最大服务转发消息数量    只有在消费者空闲的时候会发送下一条信息。
+        int prefetchCount = 2;
+        channel.basicQos(prefetchCount);
+
         // 指定消费队列
         channel.basicConsume(QUEUE_NAME, ack, consumer);
 
-        //公平转发  设置最大服务转发消息数量    只有在消费者空闲的时候会发送下一条信息。
-        int prefetchCount = 1;
-        channel.basicQos(prefetchCount);
+
 
         while (true) {
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
@@ -69,7 +74,7 @@ public class ReceiverTwo {
     private static void doWork(String task) throws InterruptedException {
         for (char ch : task.toCharArray()) {
             if (ch == '.')
-                Thread.sleep(1000);
+                Thread.sleep(10);
         }
     }
 }

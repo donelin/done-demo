@@ -23,6 +23,8 @@ public class Sender {
         ConnectionFactory factory = new ConnectionFactory();
         //设置MabbitMQ所在主机ip或者主机名
         factory.setHost("192.168.74.132");
+        //设置虚拟主机，若没有设置，默认就是"/"
+        factory.setVirtualHost("/");
         //指定用户 密码
         factory.setUsername("done");
         factory.setPassword("lfx206242");
@@ -33,12 +35,14 @@ public class Sender {
         //创建一个频道
         Channel channel = connection.createChannel();
         //指定一个队列
-        channel.queueDeclare(QUEUE_NAME,false,false,false,null);
+        channel.queueDeclare(QUEUE_NAME,true,false,false,null);
         //发送的消息
-        String message = "hello world from done!";
-        //往队列中发出一条消息
-        channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
-        log.info("Sent Message：'" + message + "'");
+        for(int  i= 0 ;i<10;i++){
+            //往队列中发出一条消息
+            String message = "hello world from done! " + i*10;
+            channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
+            log.info("Sent Message：'" + message + "'");
+        }
         //关闭频道和连接
         channel.close();
         connection.close();

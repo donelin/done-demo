@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Created by Done Lin on 2017/5/13.
  */
 @Log4j
-public class Producer {
+public class ProducerOnce {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("config/spring.xml");
         RabbitTemplate rabbitTemplate = (RabbitTemplate) context.getBean("rabbitTemplate");

@@ -3,7 +3,6 @@ package com.done.demo.helloword;
 import com.rabbitmq.client.*;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
-import java.io.IOException;
 
 /**
  * Created by Done Lin on 2017/5/8.
@@ -28,7 +27,7 @@ public class Receiver {
         //创建一个频道
         Channel channel = connection.createChannel();
         //声明队列，主要为了防止消息接收者先运行此程序，队列还不存在时创建队列。
-        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        channel.queueDeclare(QUEUE_NAME, true, false, false, null);
         //创建队列消费者
         QueueingConsumer consumer = new QueueingConsumer(channel);
         //指定消费队列
@@ -39,6 +38,7 @@ public class Receiver {
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
             String message = new String(delivery.getBody());
             log.info("Received Message：'" + message + "'");
+            Thread.sleep(20);
         }
     }
 }

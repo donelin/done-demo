@@ -1,14 +1,12 @@
-package com.done.demo.topic;
+package com.done.app;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.log4j.Log4j;
-import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -19,26 +17,23 @@ import java.util.UUID;
  */
 @Log4j
 public class Sender {
-    private static final String EXCHANGE_NAME = "TOPIC_LOGS";        //交换器名称
+    private static final String EXCHANGE_NAME = "spring.test";        //交换器名称
 
-    @Test
-    public void send() throws IOException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         //创建连接和频道
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("192.168.74.132");
         // 指定用户 密码
-        factory.setUsername("done");
-        factory.setPassword("lfx206242");
+        factory.setUsername("taotao");
+        factory.setPassword("taotao");
+        factory.setVirtualHost("/taotao");
         // 指定端口 默认5672
         factory.setPort(AMQP.PROTOCOL.PORT);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
-        // 声明转发器的类型
-        channel.exchangeDeclare(EXCHANGE_NAME, "topic");
-
         //定义绑定键
-        String[] routingKeys = new String[] { "kernal.info", "cron.warning","cu.auth.info", "kernal.critical" };
-        for (String routingKey : routingKeys)
+        String routingKey = "spring.queue.syn" ;
+        for (int  i = 0;i<100;i++)
         {
             //发送4条不同绑定键的消息
             String msg = UUID.randomUUID().toString();
