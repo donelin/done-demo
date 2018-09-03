@@ -33,7 +33,7 @@ public class Sender {
         Channel channel = connection.createChannel();
         //定义绑定键
         String routingKey = "spring.queue.syn" ;
-        for (int  i = 0;i<100;i++)
+        for (int  i = 1;i<=6;i++)
         {
             //发送4条不同绑定键的消息
             String msg = UUID.randomUUID().toString();

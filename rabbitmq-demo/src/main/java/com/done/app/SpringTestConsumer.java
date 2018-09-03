@@ -12,9 +12,16 @@ import org.springframework.amqp.rabbit.listener.adapter.AbstractAdaptableMessage
 @Log4j
 public class SpringTestConsumer extends AbstractAdaptableMessageListener {
 
+
+    private  int i;
+
     @Override
     public void onMessage(Message message, Channel channel) throws Exception {
-        logger.info("收到消息:"+JSON.toJSONString(message));
-        Thread.sleep(5000);
+        Thread.sleep(1000);
+        logger.info(Thread.currentThread()+ "收到消息i=:"+i+" "+new String(message.getBody())+" == "+JSON.toJSONString(message));
+        i++;
+        if(i>5){
+            throw  new RuntimeException("测试重试次数");
+        }
     }
 }

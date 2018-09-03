@@ -32,9 +32,10 @@
 		<!--设置Message Listener为Adapter对象 -->
 		<property name="messageListener" ref="springTestConsumer"/>
 		<property name="queues" ref="spring.queue" />
-		<property name="prefetchCount" value="5"/>
-		<property name="concurrentConsumers" value="1"/>
-		<property name="exclusive" value="true"/>
+		<property name="prefetchCount" value="5"/><!--prefetch是每次从一次性从broker里面取的待消费的消息的个数 -->
+		<property name="concurrentConsumers" value="2"/><!--concurrency设置的是对每个listener在初始化的时候设置的并发消费者的个数-->
+		<property name="exclusive" value="false"/>  <!--顺序消费此参数设置了true，且concurrentConsumers为1 -->
+		<property name="receiveTimeout" value="5000"/>
 	</bean>
 
 	<!-- 定义模板 -->

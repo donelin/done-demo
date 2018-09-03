@@ -1,10 +1,6 @@
 package com.done.app;
 
-import com.alibaba.fastjson.JSON;
-import com.rabbitmq.tools.json.JSONReader;
-import com.rabbitmq.tools.json.JSONUtil;
 import lombok.extern.log4j.Log4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
