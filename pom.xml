@@ -56,7 +56,7 @@
         <mybatis.mapper.version>2.3.4</mybatis.mapper.version>
         <pagehelper.version>3.4.2-fix</pagehelper.version>
         <druid.version>1.0.9</druid.version>
-        <mysql.version>5.1.32</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
 
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons-io.version>1.3.2</commons-io.version>
