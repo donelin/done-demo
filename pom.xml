@@ -68,7 +68,7 @@
         <logback.version>1.2.3</logback.version>
         <logback.ext.version>0.1.4</logback.ext.version>
         <jackson.version>2.7.4</jackson.version>
-        <fastjson.version>1.2.20</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <httpclient.version>4.3.5</httpclient.version>
         <joda-time.version>2.5</joda-time.version>
         <org.projectlombok.version>1.16.6</org.projectlombok.version>
