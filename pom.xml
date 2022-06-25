@@ -39,7 +39,7 @@
 
         <spring.version>4.3.6.RELEASE</spring.version>
         <springboot.version>1.5.10.RELEASE</springboot.version>
-        <spring.data.mongodb.version>1.9.6.RELEASE</spring.data.mongodb.version>
+        <spring.data.mongodb.version>3.3.5</spring.data.mongodb.version>
         <spring.data.redis.version>1.8.9.RELEASE</spring.data.redis.version>
         <spring.data.commom.version>1.12.2.RELEASE</spring.data.commom.version>
 
