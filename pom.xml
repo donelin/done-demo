@@ -73,7 +73,7 @@
         <joda-time.version>2.5</joda-time.version>
         <org.projectlombok.version>1.16.6</org.projectlombok.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
-        <hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.0.23.Final</hibernate-validator.version>
         <hibernate-core.version>5.2.2.Final</hibernate-core.version>
         <rocketmq.version>4.2.0</rocketmq.version>
     </properties>
