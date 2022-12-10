@@ -37,7 +37,7 @@
         <jsp-api.version>2.0</jsp-api.version>
         <jsqlparser.version>0.9.1</jsqlparser.version>
 
-        <spring.version>4.3.6.RELEASE</spring.version>
+        <spring.version>6.0.0</spring.version>
         <springboot.version>1.5.10.RELEASE</springboot.version>
         <spring.data.mongodb.version>1.9.6.RELEASE</spring.data.mongodb.version>
         <spring.data.redis.version>1.8.9.RELEASE</spring.data.redis.version>
